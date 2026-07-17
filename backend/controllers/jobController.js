@@ -58,3 +58,51 @@ export const getJobById = asyncHandler(async (req,res)=>{
         job,
     });
 });
+
+export const updateJob = asyncHandler(async (req,res) => {
+    const { id } = req.params;
+    const job = await Job.findById(id);
+
+    const {
+        title,
+        company,
+        location,
+        description,
+        salary,
+        skills,
+        jobType,
+        experience,
+    } = req.body;
+
+    if(!job){
+        throw new ApiError(404,"Job not found");
+    }
+
+    if(job.createdBy.toString()!==req.user.userId){
+        throw new ApiError(403,"You are not authorized to update this job");
+    }
+    const updatedJob = await Job.findByIdAndUpdate(
+        id,
+        {
+            title,
+            company,
+            location,
+            description,
+            salary,
+            skills,
+            jobType,
+            experience,
+        },
+        {
+            new: true,
+            runValidators: true,
+        }
+    );
+
+    return res.status(200).json({
+        success: true,
+        message: "Job updated successfully",
+        job: updatedJob,
+    });
+
+})
