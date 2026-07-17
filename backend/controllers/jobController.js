@@ -106,3 +106,23 @@ export const updateJob = asyncHandler(async (req,res) => {
     });
 
 })
+
+export const deleteJob = asyncHandler(async (req,res) => {
+    const { id } = req.params;
+    const job = await Job.findById(id);
+
+    if(!job){
+        throw new ApiError(404,"Job not found");
+    }
+
+    if(job.createdBy.toString()!==req.user.userId){
+        throw new ApiError(403,"You are not authorized...");
+    }
+    
+    await job.deleteOne();
+
+    return res.status(200).json({
+        success: true,
+        message: "Job deleted successfully",
+    });
+})
