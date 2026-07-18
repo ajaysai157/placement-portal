@@ -2,30 +2,112 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    name:{
-      type:String,
-      required:true,
-      trim:true,
+    name: {
+      type: String,
+      required: true,
+      trim: true,
     },
-    email:{
+
+    email: {
       type: String,
       required: true,
       unique: true,
-      lowercase: true,
       trim: true,
+      lowercase: true,
     },
-    password:{
+
+    password: {
       type: String,
       required: true,
+      select: false,
     },
+
     role: {
       type: String,
-      enum: ["student", "recruiter", "admin"],
-      default: "student",
+      enum: ["student", "recruiter"],
+      required: true,
+    },
+
+    profile: {
+      phone: {
+        type: String,
+        default: "",
+      },
+
+      college: {
+        type: String,
+        default: "",
+      },
+
+      branch: {
+        type: String,
+        default: "",
+      },
+
+      graduationYear: {
+        type: Number,
+      },
+
+      cgpa: {
+        type: Number,
+      },
+
+      skills: {
+        type: [String],
+        default: [],
+      },
+
+      bio: {
+        type: String,
+        default: "",
+      },
+
+      github: {
+        type: String,
+        default: "",
+      },
+
+      linkedin: {
+        type: String,
+        default: "",
+      },
+
+      companyName: {
+        type: String,
+        default: "",
+      },
+
+      designation: {
+        type: String,
+        default: "",
+      },
+
+      companyWebsite: {
+        type: String,
+        default: "",
+      },
+
+      companyDescription: {
+        type: String,
+        default: "",
+      },
+
+      resume: {
+        type: String,
+        default: "",
+      },
+
+      profilePicture: {
+        type: String,
+        default: "",
+      },
     },
   },
-)
+  {
+    timestamps: true,
+  }
+);
 
-const User = mongoose.model("User",userSchema);
+const User = mongoose.model("User", userSchema);
 
 export default User;

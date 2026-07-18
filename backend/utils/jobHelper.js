@@ -13,7 +13,6 @@ const getAuthorizedJob = async (jobId, userId) => {
             "You are not authorized to perform this action"
         );
     }
-
     return job;
 };
 

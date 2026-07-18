@@ -6,10 +6,10 @@ import ApiError from "../errors/ApiError.js";
 
 export const registerUser = asyncHandler(async (req, res) => {
 
-    const { email, password} = req.body;
+    const { email, password, role} = req.body;
     const name = req.body.name?.trim();
 
-    if(!name || !email || !password){
+    if(!name || !email || !password || !role){
       return res.status(400).json({
         success:false,
         message:"All fields are required"
@@ -28,6 +28,7 @@ export const registerUser = asyncHandler(async (req, res) => {
       name,
       email,
       password:hashedPassword,
+      role,
     })
     
     return res.status(201).json({
@@ -53,7 +54,7 @@ export const loginUser = async (req,res) => {
       })
     }
 
-    const user = await User.findOne({email});
+    const user = await User.findOne({ email }).select("+password");
     if (!user) {
       return res.status(401).json({
           success: false,
@@ -75,6 +76,12 @@ export const loginUser = async (req,res) => {
       success:true,
       message:"Login Successful",
       token,
+      user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+      },
     })
   }
   catch(error){
