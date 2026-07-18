@@ -1,6 +1,9 @@
 import User from "../models/User.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import ApiError from "../errors/ApiError.js";
+import streamifier from "streamifier"
+import cloudinary from "../config/cloudinary.js";
+
 
 export const getProfile = asyncHandler(async (req, res) => {
   const userId = req.user.userId;
@@ -63,3 +66,37 @@ export const updateProfile = asyncHandler(async (req, res) => {
     user,
   });
 });
+
+export const uploadResume = asyncHandler(async (req,res) => {
+    if(!req.file){
+        throw new ApiError(400,"Please upload a resume");
+    }
+
+    const result = await new Promise((resolve,reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                resource_type:"raw",
+                folder:"placement-portal/resumes",
+            },
+            (error,result) => {
+                if(error) return reject(error);
+                resolve(result);
+            }
+        );
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+    })
+
+    const user = await User.findById(req.user.userId);
+    if(!user){
+        throw new ApiError(404,"User not found");
+    }
+    user.profile.resume = result.secure_url;
+    await user.save();
+
+    return res.status(200).json({
+        success: true,
+        message: "Resume uploaded successfully",
+        resume: user.profile.resume,
+    });
+    
+})
