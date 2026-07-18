@@ -1,6 +1,7 @@
 import Job from "../models/Job.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import ApiError from "../errors/ApiError.js";
+import getAuthorizedJob from "../utils/jobHelper.js"
 
 export const createJob = asyncHandler(async (req,res)=>{
     const {
@@ -74,13 +75,8 @@ export const updateJob = asyncHandler(async (req,res) => {
         experience,
     } = req.body;
 
-    if(!job){
-        throw new ApiError(404,"Job not found");
-    }
+    await getAuthorizedJob(id, req.user.userId);
 
-    if(job.createdBy.toString()!==req.user.userId){
-        throw new ApiError(403,"You are not authorized to update this job");
-    }
     const updatedJob = await Job.findByIdAndUpdate(
         id,
         {
@@ -111,13 +107,7 @@ export const deleteJob = asyncHandler(async (req,res) => {
     const { id } = req.params;
     const job = await Job.findById(id);
 
-    if(!job){
-        throw new ApiError(404,"Job not found");
-    }
-
-    if(job.createdBy.toString()!==req.user.userId){
-        throw new ApiError(403,"You are not authorized...");
-    }
+    await getAuthorizedJob(id, req.user.userId);
     
     await job.deleteOne();
 

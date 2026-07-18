@@ -5,7 +5,7 @@ import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import errorMiddleware from "./middleware/errorMiddleware.js";
 import jobRoutes from "./routes/jobRoutes.js";
-
+import applicationRoutes from "./routes/applicationRoutes.js"
 
 dotenv.config();
 
@@ -19,13 +19,13 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use("/api/jobs", jobRoutes);
+app.use("/api/applications", applicationRoutes)
+app.use("/api/auth", authRoutes);
 
 // Routes
 app.get("/", (req, res) => {
   res.send("Placement Portal Backend is Running 🚀");
 });
-
-app.use("/api/auth", authRoutes);
 
 app.use(errorMiddleware);
 
