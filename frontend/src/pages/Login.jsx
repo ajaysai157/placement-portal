@@ -1,9 +1,17 @@
 import "./Login.css";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { loginSuccess } from "../redux/slices/authSlice";
+import { login } from "../services/authService";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -13,13 +21,32 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log({
-      email,
-      password,
-    });
+    try {
+      const response = await login({
+        email,
+        password,
+      });
+
+      dispatch(
+        loginSuccess({
+          user: response.user,
+          token: response.token,
+        })
+      );
+
+      if (response.user.role === "student") {
+        navigate("/student/dashboard");
+      } else {
+        navigate("/recruiter/dashboard");
+      }
+    } catch (error) {
+      console.error(error);
+
+      alert(error.response?.data?.message || "Login failed");
+    }
   };
 
   return (

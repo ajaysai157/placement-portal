@@ -10,10 +10,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     const name = req.body.name?.trim();
 
     if(!name || !email || !password || !role){
-      return res.status(400).json({
-        success:false,
-        message:"All fields are required"
-      })
+      throw new ApiError(400,"All fields are required");
     }
 
     const existingUser = await User.findOne({ email });
@@ -43,36 +40,26 @@ export const registerUser = asyncHandler(async (req, res) => {
 
 });
 
-export const loginUser = async (req,res) => {
-  try{
+export const loginUser =asyncHandler(async (req,res) => {
     const { email, password } = req.body;
     
     if(!email || !password){
-      return res.status(400).json({
-        success:false,
-        message:"All fields are required"
-      })
+      throw new ApiError(400,"All fields are required");
     }
 
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
-      return res.status(401).json({
-          success: false,
-          message: "Invalid email or password"
-      });
+      throw new ApiError(401,"Invalid email or password");
     }
 
     const isMatch = await bcrypt.compare(password, user.password)
     if(!isMatch){
-      return res.status(401).json({
-        success:false,
-        message:"Invalid email or password"
-      })
+      throw new ApiError(401,"Invalid email or password");
     }
 
     const token = generateToken(user);
 
-    res.status(200).json({
+    return res.status(200).json({
       success:true,
       message:"Login Successful",
       token,
@@ -83,13 +70,5 @@ export const loginUser = async (req,res) => {
           role: user.role,
       },
     })
-  }
-  catch(error){
-    console.error(error);
-    
-    res.status(500).json({
-      success:false,
-      message:"Internal server error"
-    })
-  }
-}
+
+})
