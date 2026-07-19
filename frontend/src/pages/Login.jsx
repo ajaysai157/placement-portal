@@ -37,6 +37,8 @@ function Login() {
         })
       );
 
+      localStorage.setItem("token", response.token);
+      
       if (response.user.role === "student") {
         navigate("/student/dashboard");
       } else {
