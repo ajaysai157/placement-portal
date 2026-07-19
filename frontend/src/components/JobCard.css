@@ -1,0 +1,35 @@
+.job-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+}
+
+.job-card h2 {
+  margin-bottom: 15px;
+  color: #2563eb;
+}
+
+.job-card p {
+  margin: 8px 0;
+}
+
+.details-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.details-btn:hover {
+  background: #1d4ed8;
+}
