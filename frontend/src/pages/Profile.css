@@ -1,0 +1,233 @@
+.profile-page {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  align-items: start;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===========================
+   LEFT PANEL
+=========================== */
+
+.left-panel {
+  position: sticky;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ===========================
+   RIGHT PANEL
+=========================== */
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ===========================
+   PROFILE CARD
+=========================== */
+
+.profile-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* ===========================
+   CARD HEADER
+=========================== */
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.card-header h2 {
+  font-size: 1.4rem;
+  color: #1f2937;
+}
+
+/* ===========================
+   PROFILE PICTURE
+=========================== */
+
+.profile-picture-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.profile-picture {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #2563eb;
+  background: #f3f4f6;
+}
+
+.profile-card h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* ===========================
+   INFO GROUP
+=========================== */
+
+.info-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.info-group label {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.35rem;
+}
+
+.info-group input,
+.info-group textarea {
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  outline: none;
+  font-size: 0.95rem;
+  transition: 0.3s;
+}
+
+.info-group input:focus,
+.info-group textarea:focus {
+  border-color: #2563eb;
+}
+
+.info-group textarea {
+  resize: vertical;
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+button {
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+
+.edit-btn,
+.button-group button:first-child {
+  background: #2563eb;
+  color: white;
+  padding: 0.75rem 1.4rem;
+  border-radius: 8px;
+}
+
+.edit-btn:hover,
+.button-group button:first-child:hover {
+  background: #1d4ed8;
+}
+
+.cancel-btn {
+  background: #ef4444;
+  color: white;
+  padding: 0.75rem 1.4rem;
+  border-radius: 8px;
+}
+
+.cancel-btn:hover {
+  background: #dc2626;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* ===========================
+   FILE INPUT
+=========================== */
+
+input[type="file"] {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* ===========================
+   RESUME
+=========================== */
+
+.resume-info {
+  margin-bottom: 1rem;
+}
+
+.resume-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.resume-link:hover {
+  text-decoration: underline;
+}
+
+/* ===========================
+   READ ONLY INPUTS
+=========================== */
+
+input[readonly],
+textarea[readonly] {
+  background: #f9fafb;
+  cursor: default;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width: 992px) {
+  .profile-page {
+    grid-template-columns: 1fr;
+  }
+
+  .left-panel {
+    position: static;
+  }
+
+  .profile-picture {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-page {
+    padding: 1rem;
+  }
+
+  .profile-card {
+    padding: 1rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .edit-btn,
+  .button-group button,
+  button {
+    width: 100%;
+  }
+}

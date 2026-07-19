@@ -93,19 +93,31 @@ const userSchema = new mongoose.Schema(
       },
 
       resume: {
-        type: String,
-        default: "",
+        public_id: {
+          type: String,
+          default: "",
+        },
+        url: {
+          type: String,
+          default: "",
+        },
       },
 
       profilePicture: {
-        type: String,
-        default: "",
+        public_id: {
+          type: String,
+          default: "",
+        },
+        url: {
+          type: String,
+          default: "",
+        },
       },
     },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const User = mongoose.model("User", userSchema);

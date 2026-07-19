@@ -105,6 +105,20 @@ export const getJobById = asyncHandler(async (req,res)=>{
     });
 });
 
+export const getMyJobs = asyncHandler(async (req, res) => {
+
+    const jobs = await Job.find({
+        createdBy: req.user.userId,
+    });
+
+    return res.status(200).json({
+        success: true,
+        count: jobs.length,
+        jobs,
+    });
+
+});
+
 export const updateJob = asyncHandler(async (req,res) => {
     const { id } = req.params;
     const job = await Job.findById(id);

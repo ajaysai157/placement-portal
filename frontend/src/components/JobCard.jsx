@@ -29,7 +29,7 @@ function JobCard({ job }) {
       </p>
 
       <button
-        onClick={() => navigate(`/jobs/${job._id}`)}
+        onClick={() => navigate(`/student/jobs/${job._id}`)}
         className="details-btn"
       >
         View Details

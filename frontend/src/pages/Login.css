@@ -65,3 +65,153 @@
 .login-btn:hover{
     background:#1d4ed8;
 }
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.filters input,
+.filters select {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.reset-btn {
+  border: none;
+  background: #ef4444;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 12px;
+}
+
+.reset-btn:hover {
+  background: #dc2626;
+}
+
+/* Search */
+
+.search-container{
+    margin:25px 0 35px;
+}
+
+.search-bar{
+    display:flex;
+    gap:15px;
+}
+
+.search-bar input{
+    flex:1;
+    padding:14px 16px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+    outline:none;
+}
+
+.search-bar input:focus{
+    border-color:#2563eb;
+}
+
+/* Filter Button */
+
+.filter-toggle{
+    display:flex;
+    justify-content:flex-end;
+    margin-top:15px;
+}
+
+.filter-btn{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#f3f4f6;
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
+
+.filter-btn:hover{
+    background:#e5e7eb;
+}
+
+/* Filters */
+
+.filters{
+    margin-top:18px;
+    background:white;
+    border-radius:14px;
+    padding:25px;
+    display:grid;
+    gap:22px;
+    box-shadow:0 6px 20px rgba(0,0,0,.08);
+}
+
+.filter-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.filter-group label{
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+.filter-group input,
+.filter-group select{
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:15px;
+}
+
+.filter-group input:focus,
+.filter-group select:focus{
+    outline:none;
+    border-color:#2563eb;
+}
+
+/* Buttons */
+
+.filter-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+}
+
+.search-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 24px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.search-btn:hover{
+    background:#1d4ed8;
+}
+
+.reset-btn{
+    background:#ef4444;
+    color:white;
+    border:none;
+    padding:12px 24px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.reset-btn:hover{
+    background:#dc2626;
+}

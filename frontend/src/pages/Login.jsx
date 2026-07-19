@@ -2,7 +2,7 @@ import "./Login.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
 import { loginSuccess } from "../redux/slices/authSlice";
 import { login } from "../services/authService";
 
@@ -47,7 +47,7 @@ function Login() {
     } catch (error) {
       console.error(error);
 
-      alert(error.response?.data?.message || "Login failed");
+      toast.error(error.response?.data?.message || "Login failed");
     }
   };
 
