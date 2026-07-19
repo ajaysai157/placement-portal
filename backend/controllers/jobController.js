@@ -40,14 +40,59 @@ export const createJob = asyncHandler(async (req,res)=>{
 )
 
 export const getAllJobs = asyncHandler(async (req,res) => {
-    const jobs = await Job.find();
+
+    const { keyword, location, jobType, experience } = req.query;
+
+    const query = {};
+    if (location) {
+        query.location = location;
+    }
+    if (jobType) {
+        query.jobType = jobType;
+    }
+    if (experience) {
+        query.experience = experience;
+    }
+
+    if (keyword) {
+        query.$or = [
+            {
+                title: {
+                    $regex: keyword,
+                    $options: "i",
+                },
+            },
+            {
+                company: {
+                    $regex: keyword,
+                    $options: "i",
+                },
+            },
+            {
+                description: {
+                    $regex: keyword,
+                    $options: "i",
+                },
+            },
+            {
+                skills: {
+                    $regex: keyword,
+                    $options: "i",
+                },
+            },
+        ];
+    }
+
+    const jobs = await Job.find(query);
 
     return res.status(200).json({
         success:true,
         count:jobs.length,
         jobs,
     })
+
 })
+
 export const getJobById = asyncHandler(async (req,res)=>{
     const { id } = req.params;
     const job = await Job.findById(id);

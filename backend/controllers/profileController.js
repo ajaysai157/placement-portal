@@ -100,3 +100,37 @@ export const uploadResume = asyncHandler(async (req,res) => {
     });
     
 })
+
+export const uploadProfilePicture = asyncHandler(async (req, res) => {
+    if(!req.file){
+        throw new ApiError(400,"Please upload a profile picture");
+    }
+
+    const result = await new Promise((resolve,reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                resource_type:"image",
+                folder:"placement-portal/profile_pictures",
+            },
+            (error,result) => {
+                if(error) return reject(error);
+                resolve(result);
+            }
+        );
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+    })
+
+    const user = await User.findById(req.user.userId);
+    if(!user){
+        throw new ApiError(404,"User not found");
+    }
+    user.profile.profilePicture = result.secure_url;
+    await user.save();
+
+    return res.status(200).json({
+        success: true,
+        message: "Profile picture uploaded successfully",
+        profilePicture: user.profile.profilePicture,
+    });
+
+});

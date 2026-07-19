@@ -1,5 +1,5 @@
 import express from "express"
-import { getProfile, updateProfile, uploadResume } from "../controllers/profileController.js";
+import { getProfile, updateProfile, uploadResume, uploadProfilePicture } from "../controllers/profileController.js";
 import authMiddleware from "../middleware/authMiddleware.js"
 import upload from "../middleware/uploadMiddleware.js";
 
@@ -14,5 +14,12 @@ router.post(
     upload.single("resume"),
     uploadResume
 );
+router.post(
+    "/upload-profile-picture",
+    authMiddleware,
+    upload.single("profilePicture"),
+    uploadProfilePicture
+);
+
 
 export default router;
