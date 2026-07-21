@@ -32,7 +32,7 @@ const steps = [
 
 function HowItWorks() {
   return (
-    <section className="how-section">
+    <section id="how-it-works" className="how-section">
       <div className="container">
         <h2>How It Works</h2>
         <p>Your journey from student to professional in four simple steps.</p>
