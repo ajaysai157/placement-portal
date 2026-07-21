@@ -122,7 +122,7 @@ const seedDatabase = async () => {
         let insertedApplications = 0;
 
     for (const application of applications) {
-      const studentId =
+      const studentId = 
         studentMap[application.studentEmail];
 
       const jobId =
