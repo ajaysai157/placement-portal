@@ -6,32 +6,26 @@ function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-container">
-
         <Link to="/" className="navbar-logo">
           <FaGraduationCap className="logo-icon" />
           <span>Placement Portal</span>
         </Link>
 
         <nav className="navbar-menu">
-
           <NavLink to="/" end>
             Home
           </NavLink>
 
-          <NavLink to="/jobs">
-            Jobs
-          </NavLink>
+          <NavLink to="/jobs">Jobs</NavLink>
 
-          <a href="#companies">Companies</a>
+          <a href="/#companies">Companies</a>
 
-          <a href="#how-it-works">How It Works</a>
+          <a href="/#how-it-works">How It Works</a>
 
-          <a href="#testimonials">Testimonials</a>
-
+          <a href="/#testimonials">Testimonials</a>
         </nav>
 
         <div className="navbar-actions">
-
           <Link to="/login" className="login-link">
             Login
           </Link>
@@ -40,9 +34,7 @@ function Navbar() {
             Register
             <FaArrowRight />
           </Link>
-
         </div>
-
       </div>
     </header>
   );
