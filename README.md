@@ -243,7 +243,7 @@ GitHub:
 https://github.com/ajaysai157
 
 LinkedIn:
-(Add your LinkedIn Profile URL)
+https://www.linkedin.com/in/bhargav-ajay-sai-chonga-0551a0334/
 
 ---
 
