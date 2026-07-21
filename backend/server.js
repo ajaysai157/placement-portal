@@ -15,9 +15,20 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.FRONTEND_URL,
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
@@ -39,7 +50,10 @@ app.use(errorMiddleware);
 
 // Routes
 app.get("/", (req, res) => {
-  res.send("Placement Portal Backend is Running 🚀");
+  res.status(200).json({
+    success: true,
+    message: "Placement Portal API Running 🚀",
+  });
 });
 
 
