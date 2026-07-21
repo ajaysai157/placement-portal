@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getJobs } from "../services/jobService";
 import Loader from "../components/Loader";
-import SearchBar from "../components/jobs/SearchBar";
-import FilterSidebar from "../components/jobs/FilterSidebar";
+import SearchBar from "../components/Jobs/SearchBar";
+import FilterSidebar from "../components/Jobs/FilterSidebar";
 import JobCard from "../components/JobCard";
 import EmptyState from "../components/EmptyState";
 import "../components/Jobs/Jobs.css";
