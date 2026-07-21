@@ -60,8 +60,17 @@ export const getAllApplications = asyncHandler(async (req,res) => {
         throw new ApiError(403,"non authorized");
     }
     const applications = await Application.find({
-        job:jobId,
-    }).populate("student", "name email role");
+  job: jobId,
+})
+  .populate({
+    path: "student",
+    select:
+      "name email role profile",
+  })
+  .populate({
+    path: "job",
+    select: "title company",
+  });
 
     return res.status(200).json({
         success:true,

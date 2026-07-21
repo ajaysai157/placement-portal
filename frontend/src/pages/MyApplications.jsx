@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { getMyApplications } from "../services/applicationService";
-
+import Loader from "../components/Loader";
 import "./MyApplications.css";
+import EmptyState from "../components/EmptyState";
 
 function MyApplications() {
   const [applications, setApplications] = useState([]);
@@ -25,7 +26,7 @@ function MyApplications() {
   }, []);
 
   if (loading) {
-    return <h2>Loading...</h2>;
+    return <Loader />;
   }
 
   return (
@@ -33,13 +34,13 @@ function MyApplications() {
       <h1>My Applications</h1>
 
       {applications.length === 0 ? (
-        <h3>You haven't applied to any jobs yet.</h3>
+        <EmptyState
+          title="No Applications Yet"
+          description="Start applying for jobs and your applications will appear here."
+        />
       ) : (
         applications.map((application) => (
-          <div
-            key={application._id}
-            className="application-card"
-          >
+          <div key={application._id} className="application-card">
             <h2>{application.job.title}</h2>
 
             <p>

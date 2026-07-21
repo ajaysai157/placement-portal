@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createJob } from "../services/jobService";
-import "./CreateJob.css";
 import { toast } from "react-toastify";
 
+import { createJob } from "../services/jobService";
+
+import "./CreateJob.css";
+
 function CreateJob() {
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [company, setCompany] = useState("");
   const [location, setLocation] = useState("");
@@ -13,8 +17,6 @@ function CreateJob() {
   const [jobType, setJobType] = useState("Full-time");
   const [experience, setExperience] = useState("Fresher");
   const [description, setDescription] = useState("");
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +30,7 @@ function CreateJob() {
         skills: skills
           .split(",")
           .map((skill) => skill.trim())
-          .filter((skill) => skill !== ""),
+          .filter(Boolean),
         jobType,
         experience,
         description,
@@ -36,84 +38,110 @@ function CreateJob() {
 
       toast.success(response.message);
 
-      navigate("/recruiter/dashboard", {
-        replace: true,
-      });
+      navigate("/recruiter/dashboard");
     } catch (error) {
       console.error(error);
 
-      toast.error(error.response?.data?.message || "Failed to create job");
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to create job"
+      );
     }
   };
+
   return (
-    <section className="create-job">
-      <h1>Create Job</h1>
+    <section className="create-job-page">
 
-      <form onSubmit={handleSubmit} className="job-form">
-        <input
-          type="text"
-          placeholder="Job Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
+      <div className="form-container">
 
-        <input
-          type="text"
-          placeholder="Company"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          required
-        />
+        <h1>Create New Job</h1>
 
-        <input
-          type="text"
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          required
-        />
+        <p>
+          Fill in the details below to publish a new opportunity.
+        </p>
 
-        <input
-          type="number"
-          placeholder="Salary"
-          value={salary}
-          onChange={(e) => setSalary(e.target.value)}
-          required
-        />
-
-        <input
-          type="text"
-          placeholder="Skills (comma separated)"
-          value={skills}
-          onChange={(e) => setSkills(e.target.value)}
-        />
-
-        <select value={jobType} onChange={(e) => setJobType(e.target.value)}>
-          <option>Full-time</option>
-          <option>Part-time</option>
-          <option>Internship</option>
-        </select>
-
-        <select
-          value={experience}
-          onChange={(e) => setExperience(e.target.value)}
+        <form
+          className="job-form"
+          onSubmit={handleSubmit}
         >
-          <option>Fresher</option>
-          <option>1 Year</option>
-          <option>2 Years</option>
-          <option>3+ Years</option>
-        </select>
 
-        <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          rows="6"
-        />
+          <div className="form-grid">
 
-        <button type="submit">Create Job</button>
-      </form>
+            <input
+              type="text"
+              placeholder="Job Title"
+              value={title}
+              onChange={(e)=>setTitle(e.target.value)}
+              required
+            />
+
+            <input
+              type="text"
+              placeholder="Company"
+              value={company}
+              onChange={(e)=>setCompany(e.target.value)}
+              required
+            />
+
+            <input
+              type="text"
+              placeholder="Location"
+              value={location}
+              onChange={(e)=>setLocation(e.target.value)}
+              required
+            />
+
+            <input
+              type="number"
+              placeholder="Salary"
+              value={salary}
+              onChange={(e)=>setSalary(e.target.value)}
+              required
+            />
+
+            <select
+              value={jobType}
+              onChange={(e)=>setJobType(e.target.value)}
+            >
+              <option>Full-time</option>
+              <option>Part-time</option>
+              <option>Internship</option>
+            </select>
+
+            <select
+              value={experience}
+              onChange={(e)=>setExperience(e.target.value)}
+            >
+              <option>Fresher</option>
+              <option>1 Year</option>
+              <option>2 Years</option>
+              <option>3+ Years</option>
+            </select>
+
+          </div>
+
+          <input
+            type="text"
+            placeholder="Skills (React, Node.js, MongoDB)"
+            value={skills}
+            onChange={(e)=>setSkills(e.target.value)}
+          />
+
+          <textarea
+            rows="7"
+            placeholder="Job Description"
+            value={description}
+            onChange={(e)=>setDescription(e.target.value)}
+          />
+
+          <button type="submit">
+            Publish Job
+          </button>
+
+        </form>
+
+      </div>
+
     </section>
   );
 }

@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "./index.css";
+import "./styles/global.css";
 import App from "./App";
 
 createRoot(document.getElementById("root")).render(

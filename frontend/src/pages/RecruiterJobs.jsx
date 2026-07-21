@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import Loader from "../components/Loader";
+import EmptyState from "../components/EmptyState";
 
 import { getMyJobs, deleteJob } from "../services/jobService";
-import { toast } from "react-toastify";
+
 import "./RecruiterJobs.css";
 
 function RecruiterJobs() {
@@ -42,32 +46,103 @@ function RecruiterJobs() {
     } catch (error) {
       console.error(error);
 
-      toast.error(error.response?.data?.message || "Failed to delete job");
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to delete job"
+      );
     }
   };
 
   if (loading) {
-    return <h2>Loading...</h2>;
+    return <Loader />;
   }
 
   return (
     <section className="recruiter-jobs">
-      <h1>My Jobs</h1>
+
+      <div className="page-header">
+
+        <div>
+
+          <h1>My Jobs</h1>
+
+          <p>
+            Manage all your job postings from one place.
+          </p>
+
+        </div>
+
+      </div>
 
       {jobs.length === 0 ? (
-        <h3>No Jobs Found</h3>
+
+        <EmptyState
+          title="No Jobs Posted"
+          description="Create your first job posting to start receiving applications."
+        />
+
       ) : (
+
         jobs.map((job) => (
-          <div className="job-card" key={job._id}>
-            <h2>{job.title}</h2>
 
-            <p>{job.company}</p>
+          <div
+            className="recruiter-job-card"
+            key={job._id}
+          >
 
-            <p>{job.location}</p>
+            <div className="job-top">
 
-            <div className="buttons">
+              <div className="company-logo">
+                {job.company.charAt(0)}
+              </div>
+
+              <div className="job-details">
+
+                <div className="job-title-row">
+
+                  <h2>{job.title}</h2>
+
+                  <span className="job-badge">
+                    {job.jobType}
+                  </span>
+
+                </div>
+
+                <h4>{job.company}</h4>
+
+                <div className="job-meta">
+
+                  <span>📍 {job.location}</span>
+
+                  <span>💼 {job.experience}</span>
+
+                  <span>💰 ₹{job.salary}</span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div className="skills-row">
+
+              {job.skills?.map((skill) => (
+
+                <span
+                  key={skill}
+                  className="skill-chip"
+                >
+                  {skill}
+                </span>
+
+              ))}
+
+            </div>
+
+            <div className="job-actions">
 
               <button
+                className="edit-btn"
                 onClick={() =>
                   navigate(`/recruiter/edit-job/${job._id}`)
                 }
@@ -76,12 +151,7 @@ function RecruiterJobs() {
               </button>
 
               <button
-                onClick={() => handleDelete(job._id)}
-              >
-                Delete
-              </button>
-
-              <button
+                className="view-btn"
                 onClick={() =>
                   navigate(`/recruiter/applications/${job._id}`)
                 }
@@ -89,10 +159,23 @@ function RecruiterJobs() {
                 Applicants
               </button>
 
+              <button
+                className="delete-btn"
+                onClick={() =>
+                  handleDelete(job._id)
+                }
+              >
+                Delete
+              </button>
+
             </div>
+
           </div>
+
         ))
+
       )}
+
     </section>
   );
 }

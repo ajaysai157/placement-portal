@@ -1,63 +1,53 @@
-import { useState, useEffect } from "react";
-import { FaFilter } from "react-icons/fa";
-
+import { useEffect, useState } from "react";
 import { getJobs } from "../services/jobService";
+import Loader from "../components/Loader";
+import SearchBar from "../components/jobs/SearchBar";
+import FilterSidebar from "../components/jobs/FilterSidebar";
 import JobCard from "../components/JobCard";
-
-import "./Jobs.css";
+import EmptyState from "../components/EmptyState";
+import "../components/jobs/Jobs.css";
 
 function Jobs() {
   const [jobs, setJobs] = useState([]);
+
   const [loading, setLoading] = useState(true);
+
   const [error, setError] = useState("");
 
   const [keyword, setKeyword] = useState("");
-  const [location, setLocation] = useState("");
-  const [jobType, setJobType] = useState("");
-  const [experience, setExperience] = useState("");
 
-  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState({
+    location: "",
+    jobType: "",
+    experience: "",
+  });
 
-  const fetchJobs = async (filters = {}) => {
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
+  const fetchJobs = async () => {
     try {
       setLoading(true);
 
-      const response = await getJobs(filters);
+      const response = await getJobs({
+        keyword,
+        ...filters,
+      });
 
       setJobs(response.jobs);
     } catch (error) {
       console.error(error);
+
       setError("Failed to load jobs");
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchJobs();
-  }, []);
-
-  const handleSearch = () => {
-    fetchJobs({
-      keyword,
-      location,
-      jobType,
-      experience,
-    });
-  };
-
-  const handleReset = () => {
-    setKeyword("");
-    setLocation("");
-    setJobType("");
-    setExperience("");
-
-    fetchJobs();
-  };
-
-  if (loading) {
-    return <h2>Loading Jobs...</h2>;
-  }
+if (loading) {
+  return <Loader />;
+}
 
   if (error) {
     return <h2>{error}</h2>;
@@ -65,146 +55,57 @@ function Jobs() {
 
   return (
     <section className="jobs-page">
-      <h1>Available Jobs</h1>
 
-      <div className="search-container">
+      <SearchBar
+        keyword={keyword}
+        setKeyword={setKeyword}
+        onSearch={fetchJobs}
+      />
 
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Search jobs by title, company or skill..."
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-          />
+      <div className="jobs-layout">
 
-          <button
-            className="search-btn"
-            onClick={handleSearch}
-          >
-            Search
-          </button>
-        </div>
+        <FilterSidebar
+          filters={filters}
+          setFilters={setFilters}
+        />
 
-        <div className="filter-toggle">
-          <button
-            className="filter-btn"
-            onClick={() => setShowFilters(!showFilters)}
-          >
-            <FaFilter />
+        <div className="jobs-content">
 
-            <span>
-              {showFilters ? "Hide Filters" : "Filters"}
-            </span>
-          </button>
-        </div>
+          <div className="jobs-header">
 
-        {showFilters && (
-          <div className="filters">
+            <h1>Available Jobs</h1>
 
-            <div className="filter-group">
-              <label>Location</label>
-
-              <input
-                type="text"
-                placeholder="Enter location"
-                value={location}
-                onChange={(e) =>
-                  setLocation(e.target.value)
-                }
-              />
-            </div>
-
-            <div className="filter-group">
-              <label>Job Type</label>
-
-              <select
-                value={jobType}
-                onChange={(e) =>
-                  setJobType(e.target.value)
-                }
-              >
-                <option value="">
-                  All Job Types
-                </option>
-
-                <option value="Full-time">
-                  Full-time
-                </option>
-
-                <option value="Part-time">
-                  Part-time
-                </option>
-
-                <option value="Internship">
-                  Internship
-                </option>
-              </select>
-            </div>
-
-            <div className="filter-group">
-              <label>Experience</label>
-
-              <select
-                value={experience}
-                onChange={(e) =>
-                  setExperience(e.target.value)
-                }
-              >
-                <option value="">
-                  All Experience
-                </option>
-
-                <option value="Fresher">
-                  Fresher
-                </option>
-
-                <option value="1 Year">
-                  1 Year
-                </option>
-
-                <option value="2 Years">
-                  2 Years
-                </option>
-
-                <option value="3+ Years">
-                  3+ Years
-                </option>
-              </select>
-            </div>
-
-            <div className="filter-actions">
-              <button
-                className="reset-btn"
-                onClick={handleReset}
-              >
-                Reset
-              </button>
-
-              <button
-                className="search-btn"
-                onClick={handleSearch}
-              >
-                Apply Filters
-              </button>
-            </div>
+            <button
+              className="filter-btn"
+              onClick={fetchJobs}
+            >
+              Apply Filters
+            </button>
 
           </div>
-        )}
+
+          <div className="jobs-grid">
+
+            {jobs.length === 0 ? (
+              <EmptyState
+    title="No Jobs Found"
+    description="Try changing your search or filters."
+/>
+            ) : (
+              jobs.map((job) => (
+                <JobCard
+                  key={job._id}
+                  job={job}
+                />
+              ))
+            )}
+
+          </div>
+
+        </div>
 
       </div>
 
-      <div className="jobs-grid">
-        {jobs.length === 0 ? (
-          <h2>No Jobs Found</h2>
-        ) : (
-          jobs.map((job) => (
-            <JobCard
-              key={job._id}
-              job={job}
-            />
-          ))
-        )}
-      </div>
     </section>
   );
 }

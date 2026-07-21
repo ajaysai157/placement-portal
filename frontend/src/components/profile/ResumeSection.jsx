@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+
 import { uploadResume } from "../../services/profileService";
 
 function ResumeSection({ profile, fetchProfile }) {
@@ -7,7 +8,7 @@ function ResumeSection({ profile, fetchProfile }) {
 
   const handleUpload = async () => {
     if (!selectedResume) {
-      return toast.error("Please select a PDF file.");
+      return toast.error("Please select a resume.");
     }
 
     try {
@@ -21,57 +22,59 @@ function ResumeSection({ profile, fetchProfile }) {
     } catch (error) {
       console.error(error);
 
-      toast.error(
-        error.response?.data?.message ||
-          "Resume upload failed."
-      );
+      toast.error(error.response?.data?.message || "Failed to upload resume.");
     }
   };
 
   return (
     <div className="profile-card">
-      <h2>Resume</h2>
+      <h2>📄 Resume</h2>
 
-      {profile.profile.resume.url ? (
-        <div className="resume-info">
-          <a
-            href={profile.profile.resume.url}
-            target="_blank"
-            rel="noreferrer"
-            className="resume-link"
-          >
-            📄 View Resume
-          </a>
+      <div className="resume-status">
+        {profile?.profile?.resume?.url ? (
+          <>
+            <p className="resume-success">✅ Resume Uploaded</p>
 
-          <p>Upload another PDF to replace the current resume.</p>
-        </div>
-      ) : (
-        <p>No Resume Uploaded</p>
-      )}
+            <a
+              href={profile.profile.resume.url}
+              target="_blank"
+              rel="noreferrer"
+              className="resume-link"
+            >
+              View Resume
+            </a>
+          </>
+        ) : (
+          <p className="resume-empty">No Resume Uploaded</p>
+        )}
+      </div>
 
       <input
+        id="resumeUpload"
         type="file"
-        accept=".pdf"
+        accept=".pdf,.doc,.docx"
+        hidden
         onChange={(e) => {
           const file = e.target.files[0];
 
           if (!file) return;
 
-          if (file.type !== "application/pdf") {
-            return toast.error("Only PDF files are allowed.");
-          }
-
           setSelectedResume(file);
         }}
       />
 
+      <label htmlFor="resumeUpload" className="upload-label">
+        📂 Choose Resume
+      </label>
+
+      {selectedResume && <p className="selected-file">{selectedResume.name}</p>}
+
       <button
-        onClick={handleUpload}
+        className="edit-btn"
         disabled={!selectedResume}
+        onClick={handleUpload}
       >
-        {profile.profile.resume.url
-          ? "Replace Resume"
-          : "Upload Resume"}
+        Upload Resume
       </button>
     </div>
   );

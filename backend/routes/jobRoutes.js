@@ -7,7 +7,7 @@ import {
     deleteJob,
     getMyJobs,
 } from "../controllers/jobController.js";
-
+import optionalAuthMiddleware from "../middleware/optionalAuthMiddleware.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import authorizeRoles from "../middleware/authorizeRoles.js";
 
@@ -22,7 +22,7 @@ router.get(
     getMyJobs
 );
 
-router.get("/:id", getJobById);
+router.get("/:id", optionalAuthMiddleware, getJobById);
 
 router.post(
     "/",

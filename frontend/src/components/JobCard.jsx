@@ -6,34 +6,55 @@ function JobCard({ job }) {
 
   return (
     <div className="job-card">
-      <h2>{job.title}</h2>
 
-      <p>
-        <strong>Company:</strong> {job.company}
-      </p>
+      <div className="job-card-header">
 
-      <p>
-        <strong>Location:</strong> {job.location}
-      </p>
+        <div>
 
-      <p>
-        <strong>Job Type:</strong> {job.jobType}
-      </p>
+          <h2>{job.title}</h2>
 
-      <p>
-        <strong>Experience:</strong> {job.experience}
-      </p>
+          <h4>{job.company}</h4>
 
-      <p>
-        <strong>Salary:</strong> ₹{job.salary}
-      </p>
+        </div>
+
+        <span className="job-type">
+          {job.jobType}
+        </span>
+
+      </div>
+
+      <div className="job-info">
+
+        <p>📍 {job.location}</p>
+
+        <p>💼 {job.experience}</p>
+
+        <p>💰 ₹{job.salary}</p>
+
+      </div>
+
+      <div className="skills">
+
+        {job.skills?.map((skill) => (
+          <span
+            key={skill}
+            className="skill-chip"
+          >
+            {skill}
+          </span>
+        ))}
+
+      </div>
 
       <button
-        onClick={() => navigate(`/student/jobs/${job._id}`)}
         className="details-btn"
+        onClick={() =>
+          navigate(`/jobs/${job._id}`)
+        }
       >
         View Details
       </button>
+
     </div>
   );
 }

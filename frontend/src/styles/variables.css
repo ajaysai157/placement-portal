@@ -1,0 +1,64 @@
+:root {
+
+  /* ===========================
+     COLORS
+  =========================== */
+
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+
+  --success: #22c55e;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+
+  --background: #f8fafc;
+  --surface: #ffffff;
+
+  --text: #111827;
+  --text-light: #6b7280;
+
+  --border: #e5e7eb;
+
+  /* ===========================
+     SHADOWS
+  =========================== */
+
+  --shadow-sm: 0 5px 15px rgba(0,0,0,.05);
+
+  --shadow-md: 0 10px 25px rgba(0,0,0,.08);
+
+  --shadow-lg: 0 15px 40px rgba(0,0,0,.12);
+
+  /* ===========================
+     BORDER RADIUS
+  =========================== */
+
+  --radius-sm: 8px;
+
+  --radius-md: 12px;
+
+  --radius-lg: 18px;
+
+  --radius-xl: 24px;
+
+  /* ===========================
+     SPACING
+  =========================== */
+
+  --space-xs: .5rem;
+
+  --space-sm: 1rem;
+
+  --space-md: 1.5rem;
+
+  --space-lg: 2rem;
+
+  --space-xl: 3rem;
+
+  /* ===========================
+     TRANSITION
+  =========================== */
+
+  --transition: .3s ease;
+
+}

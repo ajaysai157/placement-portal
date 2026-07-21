@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader";
+import EmptyState from "../components/EmptyState";
+import { getJobApplications } from "../services/applicationService";
 
-import {
-  getJobApplications,
-  updateApplicationStatus,
-} from "../services/applicationService";
+import ApplicantList from "../components/applicants/ApplicantList";
+import ApplicantDetails from "../components/applicants/ApplicantDetails";
 
 import "./Applicants.css";
 
@@ -13,78 +14,65 @@ function Applicants() {
   const { jobId } = useParams();
 
   const [applications, setApplications] = useState([]);
-
-  const fetchApplications = async () => {
-    try {
-      const response = await getJobApplications(jobId);
-      setApplications(response.applications);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const [selectedApplicant, setSelectedApplicant] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchApplications();
   }, [jobId]);
 
-  const handleStatus = async (id, status) => {
+  const fetchApplications = async () => {
     try {
-      const response = await updateApplicationStatus(id, status);
+      setLoading(true);
 
-      toast.success(response.message);
+      const response = await getJobApplications(jobId);
 
-      fetchApplications();
+      const validApplications = response.applications.filter(
+        (application) => application.student,
+      );
+
+      setApplications(validApplications);
+
+      if (validApplications.length > 0) {
+        const updatedSelected =
+          validApplications.find((app) => app._id === selectedApplicant?._id) ||
+          validApplications[0];
+
+        setSelectedApplicant(updatedSelected);
+      }
     } catch (error) {
       console.error(error);
 
-      toast.error(error.response?.data?.message || "Failed to update");
+      toast.error("Failed to load applicants");
+    } finally {
+      setLoading(false);
     }
   };
-
-  const validApplications = applications.filter(
-    (application) => application.student
-  );
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section className="applicants-page">
-      <h1>Applicants</h1>
-
-      {validApplications.length === 0 ? (
-        <h3>No Applications Yet</h3>
-      ) : (
-        validApplications.map((application) => (
-          <div
-            key={application._id}
-            className="application-card"
-          >
-            <h2>{application.student.name}</h2>
-
-            <p>{application.student.email}</p>
-
-            <p>
-              Status: <strong>{application.status}</strong>
-            </p>
-
-            <div className="buttons">
-              <button
-                onClick={() =>
-                  handleStatus(application._id, "Accepted")
-                }
-              >
-                Accept
-              </button>
-
-              <button
-                onClick={() =>
-                  handleStatus(application._id, "Rejected")
-                }
-              >
-                Reject
-              </button>
-            </div>
-          </div>
-        ))
+      {applications.length > 0 && (
+        <div className="page-header">
+          <h1>{applications[0].job.title}</h1>
+          <p>{applications[0].job.company}</p>
+        </div>
       )}
+
+      <div className="applicants-layout">
+        <ApplicantList
+          applications={applications}
+          selectedApplicant={selectedApplicant}
+          setSelectedApplicant={setSelectedApplicant}
+        />
+
+        <ApplicantDetails
+          applicant={selectedApplicant}
+          refreshApplications={fetchApplications}
+        />
+      </div>
     </section>
   );
 }

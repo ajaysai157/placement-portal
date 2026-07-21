@@ -1,35 +1,111 @@
-.job-card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  transition: 0.3s;
+.job-card{
+    background:#fff;
+    border-radius:18px;
+    padding:24px;
+    border:1px solid #e5e7eb;
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+    transition:.3s;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
 }
 
-.job-card:hover {
-  transform: translateY(-5px);
+.job-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 18px 35px rgba(37,99,235,.12);
 }
 
-.job-card h2 {
-  margin-bottom: 15px;
-  color: #2563eb;
+.job-card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:20px;
 }
 
-.job-card p {
-  margin: 8px 0;
+.job-card-header h2{
+    font-size:1.35rem;
+    color:#111827;
+    margin-bottom:6px;
 }
 
-.details-btn {
-  margin-top: 15px;
-  width: 100%;
-  padding: 10px;
-  border: none;
-  background: #2563eb;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
+.job-card-header h4{
+    color:#6b7280;
+    font-weight:500;
 }
 
-.details-btn:hover {
-  background: #1d4ed8;
+.job-type{
+    background:#dbeafe;
+    color:#2563eb;
+    padding:8px 14px;
+    border-radius:30px;
+    font-size:.85rem;
+    font-weight:600;
+}
+
+.job-info{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+    margin-bottom:22px;
+}
+
+.job-info p{
+    color:#4b5563;
+    font-size:.95rem;
+}
+
+.skills{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.skill-chip{
+    background:#f3f4f6;
+    color:#374151;
+    padding:7px 14px;
+    border-radius:30px;
+    font-size:.82rem;
+    transition:.3s;
+}
+
+.skill-chip:hover{
+    background:#2563eb;
+    color:white;
+}
+
+.details-btn{
+    width:100%;
+    border:none;
+    outline:none;
+    padding:13px;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+    font-size:.95rem;
+    font-weight:600;
+    transition:.3s;
+}
+
+.details-btn:hover{
+    background:#1d4ed8;
+}
+
+@media(max-width:768px){
+
+.job-card{
+padding:20px;
+}
+
+.job-card-header{
+flex-direction:column;
+gap:15px;
+}
+
+.job-type{
+align-self:flex-start;
+}
+
 }

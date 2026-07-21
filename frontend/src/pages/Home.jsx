@@ -1,14 +1,20 @@
-import HeroSection from "../components/HeroSection";
-import CompanySection from "../components/CompanySection";
-import FeaturesSection from "../components/FeaturesSection";
-import Footer from "../components/Footer";
+import Hero from "../components/home/Hero";
+import Stats from "../components/home/Stats";
+import Companies from "../components/home/Companies";
+import FeaturedJobs from "../components/home/FeaturedJobs";
+import HowItWorks from "../components/home/HowItWorks";
+import Testimonials from "../components/home/Testimonials";
+import Footer from "../components/home/Footer";
 
 function Home() {
   return (
     <>
-      <HeroSection />
-      <CompanySection />
-      <FeaturesSection />
+      <Hero />
+      <Stats />
+      <Companies />
+      <FeaturedJobs />
+      <HowItWorks />
+      <Testimonials />
       <Footer />
     </>
   );

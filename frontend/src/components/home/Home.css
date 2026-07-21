@@ -1,0 +1,290 @@
+/* ===========================
+   GENERAL
+=========================== */
+
+section {
+  padding: 80px 10%;
+}
+
+section h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 3rem;
+  color: #111827;
+}
+
+/* ===========================
+   HERO
+=========================== */
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 90vh;
+  gap: 4rem;
+  background: linear-gradient(135deg, #eff6ff, #ffffff);
+}
+
+.hero-content {
+  flex: 1;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: #dbeafe;
+  color: #2563eb;
+  padding: .6rem 1.2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  color: #111827;
+}
+
+.hero p {
+  font-size: 1.15rem;
+  color: #6b7280;
+  max-width: 550px;
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.primary-btn,
+.secondary-btn {
+  padding: 15px 32px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: .3s;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.primary-btn:hover {
+  background: #1d4ed8;
+}
+
+.secondary-btn {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.secondary-btn:hover {
+  background: #e5e7eb;
+}
+
+.hero-image {
+  flex: 1;
+  text-align: center;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 550px;
+}
+
+/* ===========================
+   STATS
+=========================== */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 2rem;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.stat-card h2 {
+  color: #2563eb;
+  margin-bottom: .5rem;
+}
+
+/* ===========================
+   COMPANIES
+=========================== */
+
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+  gap: 1.5rem;
+}
+
+.company-card {
+  padding: 2rem;
+  border-radius: 12px;
+  background: white;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+  font-weight: 600;
+  transition: .3s;
+}
+
+.company-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ===========================
+   FEATURED JOBS
+=========================== */
+
+.featured-job-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  gap: 2rem;
+}
+
+.featured-job-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.featured-job-card h3 {
+  margin-bottom: .8rem;
+}
+
+.featured-job-card span {
+  display: block;
+  margin: 1rem 0;
+  color: gray;
+}
+
+.featured-job-card button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+/* ===========================
+   HOW IT WORKS
+=========================== */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 2rem;
+}
+
+.step-card {
+  background: white;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.step-icon {
+  font-size: 3rem;
+  color: #2563eb;
+  margin-bottom: 1rem;
+}
+
+/* ===========================
+   TESTIMONIALS
+=========================== */
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 2rem;
+}
+
+.testimonial-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.testimonial-card h4 {
+  margin-top: 1.5rem;
+  color: #2563eb;
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+
+.footer {
+  background: #111827;
+  color: white;
+  text-align: center;
+  padding: 4rem 10%;
+}
+
+.footer-links {
+  margin: 2rem 0;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 1rem;
+}
+
+.footer-links a:hover {
+  color: #60a5fa;
+}
+
+.copyright {
+  color: #9ca3af;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width: 992px) {
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .stats,
+  .steps,
+  .testimonial-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .stats,
+  .steps,
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+
+}

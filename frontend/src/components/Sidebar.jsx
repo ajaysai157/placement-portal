@@ -34,7 +34,11 @@ function Sidebar({ role }) {
 
   return (
     <aside className="sidebar">
-      <h2 className="logo">Placement Portal</h2>
+      <div className="logo">
+        <h2>Placement Portal</h2>
+
+        <p>{role === "student" ? "Student Portal" : "Recruiter Portal"}</p>
+      </div>
 
       <nav>
         {role === "student" ? (

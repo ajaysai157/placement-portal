@@ -1,41 +1,50 @@
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+import { FaGraduationCap, FaArrowRight } from "react-icons/fa";
 import "./Navbar.css";
 
 function Navbar() {
   return (
-    <nav className="navbar">
-      <div className="logo">
-        <h2>🎓 Placement Portal</h2>
-      </div>
+    <header className="navbar">
+      <div className="navbar-container">
 
-      <ul className="nav-links">
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-
-        <li>
-          <Link to="/jobs">Jobs</Link>
-        </li>
-
-        <li>
-          <Link to="/companies">Companies</Link>
-        </li>
-
-        <li>
-          <Link to="/about">About</Link>
-        </li>
-      </ul>
-
-      <div className="auth-buttons">
-        <Link to="/login" className="login-btn">
-          Login
+        <Link to="/" className="navbar-logo">
+          <FaGraduationCap className="logo-icon" />
+          <span>Placement Portal</span>
         </Link>
 
-        <Link to="/register" className="register-btn">
-          Register
-        </Link>
+        <nav className="navbar-menu">
+
+          <NavLink to="/" end>
+            Home
+          </NavLink>
+
+          <NavLink to="/jobs">
+            Jobs
+          </NavLink>
+
+          <a href="#companies">Companies</a>
+
+          <a href="#how-it-works">How It Works</a>
+
+          <a href="#testimonials">Testimonials</a>
+
+        </nav>
+
+        <div className="navbar-actions">
+
+          <Link to="/login" className="login-link">
+            Login
+          </Link>
+
+          <Link to="/register" className="register-link">
+            Register
+            <FaArrowRight />
+          </Link>
+
+        </div>
+
       </div>
-    </nav>
+    </header>
   );
 }
 

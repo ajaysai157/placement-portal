@@ -1,35 +1,84 @@
 .recruiter-dashboard {
-  padding: 40px;
-}
+  min-height: 100vh;
 
-.recruiter-dashboard h1 {
-  margin-bottom: 30px;
-}
+  padding: 45px;
 
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  background:
+    radial-gradient(circle at top left, #dbeafe 0%, transparent 40%),
+    radial-gradient(circle at bottom right, #bfdbfe 0%, transparent 35%),
+    linear-gradient(135deg, #eef5ff, #f8fbff);
 }
 
 .dashboard-header {
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
-  margin-bottom: 30px;
+
+  margin-bottom: 40px;
+}
+
+.dashboard-header h1 {
+  font-size: 2.4rem;
+
+  color: #111827;
+
+  margin-bottom: 8px;
+}
+
+.dashboard-header p {
+  color: #64748b;
+}
+
+.dashboard-grid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+  gap: 28px;
 }
 
 .create-job-btn {
-  padding: 10px 18px;
-  border: none;
-  background: #2563eb;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+
   color: white;
-  border-radius: 8px;
+
+  border: none;
+
+  padding: 15px 26px;
+
+  border-radius: 14px;
+
+  font-weight: 600;
+
   cursor: pointer;
-  font-size: 15px;
+
   transition: 0.3s;
+
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.2);
 }
 
 .create-job-btn:hover {
-  background: #1d4ed8;
+  transform: translateY(-3px);
+
+  box-shadow: 0 18px 35px rgba(37, 99, 235, 0.3);
+}
+
+@media (max-width: 768px) {
+  .recruiter-dashboard {
+    padding: 20px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 20px;
+  }
+
+  .create-job-btn {
+    width: 100%;
+  }
 }
